@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northern Italy — Destinasi Premium Minimalis</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Konfigurasi Tailwind untuk Font Inter dan Palet Warna Premium -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#003366', // Deep Navy Blue (Premium)
+                        'accent': '#B8860B', // Dark Gold/Bronze
+                        'bg-light': '#F8F8F8', // Off-White
+                        'text-dark': '#333333',
+                        'bg-dark': '#1C1C1C', // Dark Charcoal
+                        'text-light': '#E0E0E0',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    // Animasi untuk simulasi scroll/reveal
+                    animation: {
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        slideUp: {
+                            '0%': { opacity: 0, transform: 'translateY(20px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Gaya dasar untuk Dark/Light Mode */
+        .light {
+            background-color: theme('colors.bg-light');
+            color: theme('colors.text-dark');
+        }
+        .dark {
+            background-color: theme('colors.bg-dark');
+            color: theme('colors.text-light');
+        }
+        /* Sidebar tetap tersembunyi secara default, hanya muncul di mobile */
+        #sidebar-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+        }
+        #sidebar-menu.active {
+            transform: translateX(0);
+        }
+        /* Styling untuk Parallax/Video Background (Simulasi) */
+        .hero-bg {
+            background-image: url('https://placehold.co/1920x1080/003366/FFFFFF?text=Pemandangan+Danau+Como');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Efek Parallax */
+            height: 80vh;
+        }
+    </style>
+</head>
+<body class="light font-sans transition-colors duration-500" x-data="{ isMenuOpen: false }">
+
+    <!-- 1.a & 1.g: Header / Navbar (Navigasi Utama & Responsif) -->
+    <header class="sticky top-0 z-40 shadow-lg backdrop-blur-md bg-opacity-80 dark:bg-opacity-80 transition-all duration-300 dark:bg-bg-dark bg-bg-light">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo Brand -->
+            <a href="#" class="text-2xl font-bold tracking-wider text-primary dark:text-accent">Northern Italia</a>
+
+            <!-- Navigasi Desktop -->
+            <div class="hidden lg:flex space-x-8 items-center">
+                <a href="#destinasi" class="nav-link">Destinasi</a>
+                <a href="#galeri" class="nav-link">Galeri</a>
+                <a href="#reservasi" class="nav-link">Reservasi</a>
+                <a href="#blog" class="nav-link">Blog</a>
+                <a href="#kontak" class="nav-link">Kontak</a>
+
+                <!-- 1.e: Search Bar Desktop -->
+                <div class="relative">
+                    <input type="text" placeholder="Cari..." class="py-1 px-3 border border-gray-300 dark:border-gray-700 rounded-full text-sm dark:bg-bg-dark bg-bg-light focus:outline-none focus:ring-2 focus:ring-accent transition duration-300">
+                    <button class="absolute right-0 top-0 mt-1 mr-2 text-gray-500 dark:text-gray-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Kontrol Aksi: Dark/Light & Bahasa -->
+            <div class="flex items-center space-x-4">
+                <!-- 2.d & 3.m: Multibahasa (Language Switcher) -->
+                <button id="lang-switcher" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition duration-300 text-sm font-medium border border-primary dark:border-accent dark:text-accent text-primary">ID/EN</button>
+
+                <!-- 2.a & 3.p: Dark / Light Mode Toggle -->
+                <button id="dark-mode-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition duration-300">
+                    <!-- Icon Light Mode (Sun) -->
+                    <svg id="sun-icon" class="w-6 h-6 hidden text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3a9 9 0 109 9c0-.62-.1-1.22-.29-1.78a.99.99 0 00-1.88.58 7 7 0 11-7.85 7.85c-.3-.8-.47-1.66-.47-2.57 0-4.96 4.04-9 9-9z"></path></svg>
+                    <!-- Icon Dark Mode (Moon) -->
+                    <svg id="moon-icon" class="w-6 h-6 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M20 15a8 8 0 11-8-8c0 4.41 3.59 8 8 8zM2 12a10 10 0 1020 0 10 10 0 00-20 0z"></path></svg>
+                </button>
+
+                <!-- Tombol Menu Mobile -->
+                <button id="menu-toggle" class="lg:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 1.d: Sidebar (Mobile) -->
+    <div id="sidebar-menu" class="fixed top-0 right-0 h-full w-64 bg-bg-light dark:bg-gray-900 shadow-2xl z-50 p-6 lg:hidden flex flex-col items-start space-y-4">
+        <button id="close-menu" class="absolute top-4 right-4 p-2 text-primary dark:text-text-light">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <h3 class="text-lg font-bold mb-4 mt-8 text-primary dark:text-accent">Menu</h3>
+        <a href="#destinasi" class="sidebar-link">Destinasi</a>
+        <a href="#galeri" class="sidebar-link">Galeri</a>
+        <a href="#reservasi" class="sidebar-link">Reservasi</a>
+        <a href="#blog" class="sidebar-link">Blog</a>
+        <a href="#kontak" class="sidebar-link">Kontak</a>
+        <hr class="w-full border-gray-300 dark:border-gray-700 my-4">
+        <!-- 1.e: Search Bar Mobile -->
+        <input type="text" placeholder="Cari..." class="w-full py-2 px-4 border border-gray-300 dark:border-gray-700 rounded-lg text-sm dark:bg-bg-dark bg-bg-light focus:outline-none focus:ring-2 focus:ring-accent transition duration-300">
+    </div>
+
+
+    <!-- 1.b & 2.i: Hero Section (Bagian Utama Atas dengan Simulasi Video Background) -->
+    <section id="hero" class="hero-bg flex items-center justify-center text-center p-12 lg:p-24 relative overflow-hidden">
+        <!-- Overlay untuk Kontras Teks -->
+        <div class="absolute inset-0 bg-primary opacity-60 dark:opacity-70"></div>
+        <div class="relative z-10">
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-bg-light mb-6 animate-slide-up" style="animation-delay: 0.1s;">
+                Pesona Abadi Northern Italia
+            </h1>
+            <p class="text-xl sm:text-2xl text-text-light mb-10 max-w-4xl mx-auto animate-slide-up" style="animation-delay: 0.3s;">
+                Temukan keindahan Danau Como, pegunungan Dolomiti, dan budaya kaya Milan dalam sentuhan premium.
+            </p>
+            <button class="btn-primary animate-slide-up" style="animation-delay: 0.5s;" onclick="openVirtualTour()">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.55 4.55a.5.5 0 01-.35.85H5.8a.5.5 0 01-.35-.85L10 10m5 0v7a2 2 0 01-2 2H7a2 2 0 01-2-2v-7l5-5z"></path></svg>
+                Virtual Tour 360°
+            </button>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+
+        <!-- 3.g: Artikel / Blog Wisata (Bagian Sidebar/Konten Samping) -->
+        <div class="lg:flex lg:space-x-12">
+            <div class="lg:w-3/4">
+
+                <!-- 3.a: Deskripsi Destinasi Utama -->
+                <section id="destinasi" class="mb-20 animate-on-scroll">
+                    <h2 class="section-title">Destinasi Unggulan</h2>
+                    <p class="mb-10 max-w-3xl text-lg dark:text-gray-300">Northern Italy adalah perpaduan sempurna antara kemegahan alam dan warisan budaya. Jelajahi ikon-ikon utama kami.</p>
+
+                    <!-- Kartu Destinasi (3.a, 3.n) -->
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="bg-bg-light dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <img src="https://placehold.co/600x400/003366/FFFFFF?text=Dolomiti" alt="Dolomiti" class="w-full h-48 object-cover rounded-lg mb-4">
+                            <h3 class="text-xl font-semibold mb-2 text-primary dark:text-accent">Dolomiti</h3>
+                            <p class="text-sm dark:text-gray-400 mb-4">Puncak-puncak batu kapur yang menakjubkan, sempurna untuk hiking dan ski. Keindahan alami yang tak tertandingi.</p>
+                            <a href="#" class="text-accent hover:text-primary dark:hover:text-bg-light transition-colors duration-300 font-medium text-sm inline-flex items-center">
+                                Detail & Tiket
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                            <div class="mt-4 flex space-x-2">
+                                <span class="share-icon">FB</span>
+                                <span class="share-icon">IG</span>
+                            </div>
+                        </div>
+                        <div class="bg-bg-light dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <img src="https://placehold.co/600x400/B8860B/003366?text=Milan" alt="Milan" class="w-full h-48 object-cover rounded-lg mb-4">
+                            <h3 class="text-xl font-semibold mb-2 text-primary dark:text-accent">Milan</h3>
+                            <p class="text-sm dark:text-gray-400 mb-4">Pusat mode dan desain Italia. Jelajahi Duomo yang megah dan galeri seni kelas dunia.</p>
+                            <a href="#" class="text-accent hover:text-primary dark:hover:text-bg-light transition-colors duration-300 font-medium text-sm inline-flex items-center">
+                                Detail & Tiket
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                            <div class="mt-4 flex space-x-2">
+                                <span class="share-icon">FB</span>
+                                <span class="share-icon">IG</span>
+                            </div>
+                        </div>
+                        <div class="bg-bg-light dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <img src="https://placehold.co/600x400/003366/FFFFFF?text=Venice" alt="Venice" class="w-full h-48 object-cover rounded-lg mb-4">
+                            <h3 class="text-xl font-semibold mb-2 text-primary dark:text-accent">Venesia</h3>
+                            <p class="text-sm dark:text-gray-400 mb-4">Kota kanal romantis yang unik. Nikmati gondola dan sejarah yang tak terhitung.</p>
+                            <a href="#" class="text-accent hover:text-primary dark:hover:text-bg-light transition-colors duration-300 font-medium text-sm inline-flex items-center">
+                                Detail & Tiket
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                            <div class="mt-4 flex space-x-2">
+                                <span class="share-icon">FB</span>
+                                <span class="share-icon">IG</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3.j: Filter Destinasi Berdasarkan Kategori -->
+                    <div class="mt-12">
+                        <h4 class="text-lg font-medium mb-3 dark:text-gray-200">Filter Berdasarkan Kategori:</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <button class="filter-btn">Pegunungan</button>
+                            <button class="filter-btn">Kota</button>
+                            <button class="filter-btn">Danau & Air</button>
+                            <button class="filter-btn">Sejarah & Seni</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3.b & 3.i: Galeri Foto / Video & Virtual Tour -->
+                <section id="galeri" class="mb-20 animate-on-scroll">
+                    <h2 class="section-title">Galeri Keindahan Northern Italia</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <img src="https://placehold.co/300x300/333333/FFFFFF?text=Foto+1" class="gallery-img" alt="Foto Italia Utara 1">
+                        <img src="https://placehold.co/300x300/B8860B/FFFFFF?text=Foto+2" class="gallery-img" alt="Foto Italia Utara 2">
+                        <img src="https://placehold.co/300x300/003366/FFFFFF?text=Foto+3" class="gallery-img" alt="Foto Italia Utara 3">
+                        <img src="https://placehold.co/300x300/1C1C1C/FFFFFF?text=Foto+4" class="gallery-img" alt="Foto Italia Utara 4">
+                    </div>
+                    <div class="text-center mt-8">
+                        <button class="btn-secondary" onclick="openVirtualTour()">
+                            Tonton Virtual Tour (360°)
+                        </button>
+                    </div>
+                </section>
+
+                <!-- 3.c, 3.d, 3.h: Tiket, Jadwal, Fasilitas & Reservasi -->
+                <section id="reservasi" class="mb-20 bg-primary/5 dark:bg-gray-800 p-8 rounded-xl shadow-lg animate-on-scroll">
+                    <h2 class="section-title text-primary dark:text-accent">Pemesanan & Layanan</h2>
+                    <div class="lg:flex lg:space-x-8">
+                        <!-- Informasi Tiket & Fasilitas (3.c, 3.d) -->
+                        <div class="lg:w-1/2 mb-8 lg:mb-0">
+                            <h3 class="text-2xl font-semibold mb-4 dark:text-gray-100">Jadwal & Fasilitas Kunjungan</h3>
+                            <p class="mb-4">Jam Buka: 09:00 - 18:00 (Setiap Hari)</p>
+                            <ul class="list-disc list-inside space-y-2 dark:text-gray-300">
+                                <li>Tiket Dewasa Mulai dari €25</li>
+                                <li>Gratis Parkir Premium</li>
+                                <li>Akses Wi-Fi Kecepatan Tinggi</li>
+                                <li>Pemandu Wisata Multibahasa</li>
+                                <li>Area Istirahat Eksklusif</li>
+                            </ul>
+                            <!-- 3.l: Cuaca & Kondisi Terkini Widget Placeholder -->
+                            <div class="mt-6 p-4 bg-accent/10 dark:bg-accent/20 rounded-lg text-sm">
+                                <p class="font-medium text-accent">Cuaca Terkini: <span id="current-weather">21°C, Cerah.</span></p>
+                                <p class="text-xs dark:text-gray-400">Kondisi: Normal. Tidak ada penundaan jadwal.</p>
+                            </div>
+                        </div>
+
+                        <!-- Form Pemesanan / Reservasi (3.h) -->
+                        <div class="lg:w-1/2">
+                            <h3 class="text-2xl font-semibold mb-4 dark:text-gray-100">Formulir Reservasi</h3>
+                            <form id="reservation-form" class="space-y-4">
+                                <input type="text" placeholder="Nama Lengkap" required class="form-input">
+                                <input type="email" placeholder="Email Aktif" required class="form-input">
+                                <input type="number" placeholder="Jumlah Pengunjung" required class="form-input">
+                                <input type="date" required class="form-input">
+                                <textarea placeholder="Pesan Khusus (Opsional)" class="form-input h-24"></textarea>
+                                <button type="submit" class="btn-primary w-full">Konfirmasi Reservasi</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3.e: Event & Kegiatan Lokal -->
+                <section id="events" class="mb-20 animate-on-scroll">
+                    <h2 class="section-title">Event & Kegiatan Lokal</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-6 border border-gray-200 dark:border-gray-700 rounded-xl">
+                            <h3 class="text-xl font-semibold mb-2 dark:text-accent">Festival Anggur Veneto</h3>
+                            <p class="text-sm dark:text-gray-400 mb-2">Tanggal: 15-20 Oktober 2026</p>
+                            <p class="dark:text-gray-300">Nikmati koleksi anggur terbaik dari kawasan Veneto. Acara wajib bagi pecinta kuliner dan wine.</p>
+                        </div>
+                        <div class="p-6 border border-gray-200 dark:border-gray-700 rounded-xl">
+                            <h3 class="text-xl font-semibold mb-2 dark:text-accent">Pameran Desain Milan</h3>
+                            <p class="text-sm dark:text-gray-400 mb-2">Tanggal: 5-10 April 2026</p>
+                            <p class="dark:text-gray-300">Inovasi terbaru dalam mode, arsitektur, dan desain di ibukota mode dunia.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2.g: Counter / Statistik (Bagian Tengah) -->
+                <section id="stats" class="mb-20 text-center py-16 bg-primary dark:bg-gray-900 rounded-xl animate-on-scroll">
+                    <h2 class="text-3xl font-bold mb-10 text-bg-light">Northern Italy dalam Angka</h2>
+                    <div class="grid grid-cols-3 gap-4 text-bg-light">
+                        <div>
+                            <p class="text-4xl font-extrabold text-accent" id="stat-1">0</p>
+                            <p class="mt-2 text-sm uppercase tracking-wider">Destinasi Populer</p>
+                        </div>
+                        <div>
+                            <p class="text-4xl font-extrabold text-accent" id="stat-2">0</p>
+                            <p class="mt-2 text-sm uppercase tracking-wider">Pengunjung Puas</p>
+                        </div>
+                        <div>
+                            <p class="text-4xl font-extrabold text-accent" id="stat-3">0</p>
+                            <p class="mt-2 text-sm uppercase tracking-wider">Tahun Beroperasi</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2.h: Map Integration Placeholder -->
+                <section id="map" class="mb-20 animate-on-scroll">
+                    <h2 class="section-title">Lokasi Kami</h2>
+                    <div class="h-96 w-full rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700">
+                        <!-- Placeholder Iframe untuk Google Maps -->
+                        <iframe src="https://maps.google.com/maps?q=Milan,Italy&z=10&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <p class="mt-4 text-sm dark:text-gray-400 text-center">Jelajahi destinasi kami secara visual di peta interaktif.</p>
+                </section>
+
+                <!-- 1.f & 3.q: Contact Form & Form Saran -->
+                <section id="kontak" class="mb-20 animate-on-scroll">
+                    <h2 class="section-title">Hubungi Kami / Beri Penilaian</h2>
+                    <div class="max-w-3xl mx-auto bg-primary/5 dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+                        <form id="contact-form" class="space-y-4">
+                            <p class="text-lg font-medium mb-4">Tim kami siap membantu perjalanan Anda.</p>
+                            <input type="text" placeholder="Nama Anda" required class="form-input">
+                            <input type="email" placeholder="Email Anda" required class="form-input">
+                            <!-- 3.q: Penilaian/Saran -->
+                            <div class="space-y-2">
+                                <label class="block dark:text-gray-300">Beri Penilaian (1-5 Bintang):</label>
+                                <select class="form-input" required>
+                                    <option>5 Bintang (Sangat Puas)</option>
+                                    <option>4 Bintang (Puas)</option>
+                                    <option>3 Bintang (Cukup)</option>
+                                    <option>2 Bintang (Kurang)</option>
+                                    <option>1 Bintang (Buruk)</option>
+                                </select>
+                            </div>
+                            <textarea placeholder="Saran / Pertanyaan Anda" required class="form-input h-32"></textarea>
+                            <button type="submit" class="btn-primary w-full">Kirim Pesan & Penilaian</button>
+                        </form>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- 1.d: Sidebar (Tampilan Desktop) -->
+            <div class="lg:w-1/4 mt-12 lg:mt-0">
+                <aside class="space-y-10">
+                    <!-- 3.g: Blog/Artikel Wisata Mini -->
+                    <div id="blog" class="p-6 bg-bg-light dark:bg-gray-800 rounded-xl shadow-md border-t-4 border-accent">
+                        <h3 class="text-xl font-semibold mb-4 text-primary dark:text-accent">Artikel Terbaru</h3>
+                        <ul class="space-y-4">
+                            <li><a href="#" class="sidebar-article-link">5 Danau Tersembunyi di Lombardia</a></li>
+                            <li><a href="#" class="sidebar-article-link">Panduan Kuliner Verona</a></li>
+                            <li><a href="#" class="sidebar-article-link">Sejarah Singkat Dolomiti</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- 3.f & 3.k: Ulasan & Testimoni Pengunjung Otomatis (Carousel Simulation) -->
+                    <div class="p-6 bg-primary dark:bg-gray-900 rounded-xl shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 text-bg-light">Testimoni Terbaik</h3>
+                        <div id="testimonial-carousel" class="relative overflow-hidden h-32">
+                            <!-- Testimoni akan dimasukkan oleh JS -->
+                            <p class="text-text-light italic" id="carousel-text">"Pemandangannya sungguh menakjubkan dan layanan yang diberikan sangat profesional."</p>
+                            <p class="text-accent mt-2 text-right font-medium" id="carousel-author">- Budi S. (Indonesia)</p>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Cepat -->
+                    <div class="space-y-3">
+                        <button class="btn-sidebar-quick-link w-full">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l-2 2m-2-2v10a1 1 0 01-1 1h-3"></path></svg>
+                            Cek Jadwal
+                        </button>
+                        <button class="btn-sidebar-quick-link w-full">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Fasilitas
+                        </button>
+                    </div>
+
+                </aside>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 1.c: Footer (Bagian Bawah Website) -->
+    <footer class="bg-primary dark:bg-black text-bg-light py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-accent">Northern Italia</h4>
+                    <p class="text-sm">Eksplorasi destinasi premium dengan layanan terbaik.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Navigasi</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#destinasi" class="footer-link">Destinasi</a></li>
+                        <li><a href="#reservasi" class="footer-link">Pemesanan</a></li>
+                        <li><a href="#kontak" class="footer-link">Kontak</a></li>
+                        <li><a href="#" class="footer-link">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Media Sosial</h4>
+                    <div class="flex space-x-3">
+                        <span class="social-icon">F</span>
+                        <span class="social-icon">I</span>
+                        <span class="social-icon">X</span>
+                        <span class="social-icon">Y</span>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Kontak Cepat</h4>
+                    <p class="text-sm">Email: info@northernitalia.com</p>
+                    <p class="text-sm">Telp: +39 012 345 6789</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-6 text-center text-sm">
+                &copy; 2024 Northern Italia. All Rights Reserved. Desain oleh Ahli Pemrograman.
+            </div>
+        </div>
+    </footer>
+
+    <!-- 2.c & 3.o: Chatbot / Live Chat Floating Button -->
+    <button id="chat-toggle" class="fixed bottom-6 right-6 p-4 rounded-full bg-accent text-bg-light shadow-xl hover:bg-yellow-700 transition duration-300 z-50">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    </button>
+
+    <!-- Chatbot Modal -->
+    <div id="chat-modal" class="fixed bottom-20 right-6 w-80 h-96 bg-bg-light dark:bg-gray-800 rounded-xl shadow-2xl z-50 hidden flex-col overflow-hidden">
+        <div class="bg-primary text-bg-light p-4 flex justify-between items-center rounded-t-xl">
+            <h5 class="font-semibold">Panduan Wisata AI</h5>
+            <button id="close-chat" class="text-bg-light hover:text-accent">&times;</button>
+        </div>
+        <div id="chat-body" class="flex-grow p-4 overflow-y-auto space-y-3">
+            <div class="chat-message bot">Halo! Saya GuideAI. Ada yang bisa saya bantu tentang Northern Italy?</div>
+        </div>
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700 flex">
+            <input type="text" id="chat-input" placeholder="Tanyakan sesuatu..." class="flex-grow py-2 px-3 border border-gray-300 dark:border-gray-700 rounded-l-lg text-sm dark:bg-bg-dark focus:outline-none">
+            <button id="chat-send" class="bg-accent text-bg-light p-2 rounded-r-lg hover:bg-yellow-700 transition duration-300">Kirim</button>
+        </div>
+    </div>
+
+
+    <!-- JavaScript untuk Fungsionalitas Modern -->
+    <script>
+        // Variabel global untuk status bahasa
+        let currentLang = 'ID';
+
+        // --- 2.a: Dark / Light Mode Toggle Logic ---
+        const toggleDarkMode = () => {
+            const body = document.body;
+            const isDark = body.classList.toggle('dark');
+            body.classList.toggle('light', !isDark);
+            
+            // Simpan preferensi pengguna di localStorage
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            
+            // Update ikon
+            document.getElementById('sun-icon').classList.toggle('hidden', isDark);
+            document.getElementById('moon-icon').classList.toggle('hidden', !isDark);
+        };
+
+        // Muat preferensi saat startup
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.body.classList.add('dark');
+                document.body.classList.remove('light');
+                document.getElementById('sun-icon').classList.remove('hidden');
+                document.getElementById('moon-icon').classList.add('hidden');
+            } else {
+                document.body.classList.add('light');
+                document.body.classList.remove('dark');
+                document.getElementById('sun-icon').classList.add('hidden');
+                document.getElementById('moon-icon').classList.remove('hidden');
+            }
+
+            document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
+            initializeInteractions();
+            animateCounters();
+            setupScrollAnimation();
+            startTestimonialCarousel();
+        });
+
+        // --- 1.d: Sidebar / Menu Mobile Logic ---
+        const initializeInteractions = () => {
+            const menuToggle = document.getElementById('menu-toggle');
+            const closeMenu = document.getElementById('close-menu');
+            const sidebar = document.getElementById('sidebar-menu');
+
+            menuToggle.addEventListener('click', () => sidebar.classList.add('active'));
+            closeMenu.addEventListener('click', () => sidebar.classList.remove('active'));
+
+            // Tutup sidebar saat link diklik (untuk navigasi)
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.addEventListener('click', () => sidebar.classList.remove('active'));
+            });
+        };
+        
+        // --- 2.d: Language Switcher Logic (Simulasi) ---
+        document.getElementById('lang-switcher').addEventListener('click', () => {
+            currentLang = currentLang === 'ID' ? 'EN' : 'ID';
+            document.getElementById('lang-switcher').textContent = currentLang === 'ID' ? 'ID/EN' : 'EN/ID';
+            const message = currentLang === 'ID' 
+                ? 'Bahasa diubah ke Indonesia. (Konten simulasi)' 
+                : 'Language switched to English. (Simulated content)';
+            showMessageBox(message);
+        });
+        
+        // --- Custom Modal/Message Box (Pengganti alert()) ---
+        const showMessageBox = (message) => {
+            console.log("Pesan Sistem: " + message);
+            // Dalam implementasi nyata, ini akan menampilkan modal/toast di UI.
+            // Untuk prototipe ini, kita gunakan console log dan placeholder.
+            alert(message); // Menggunakan alert sementara untuk demonstrasi fitur
+        };
+
+        // --- 2.g: Counter / Statistik Animation ---
+        const animateCounter = (elementId, target) => {
+            const element = document.getElementById(elementId);
+            let count = 0;
+            const duration = 1500; // 1.5 detik
+            const step = target / (duration / 10); // Hitung langkah per 10ms
+
+            const timer = setInterval(() => {
+                count += step;
+                if (count >= target) {
+                    clearInterval(timer);
+                    count = target;
+                }
+                element.textContent = Math.floor(count).toLocaleString('id-ID');
+            }, 10);
+        };
+
+        const animateCounters = () => {
+            animateCounter('stat-1', 45); // Destinasi Populer
+            animateCounter('stat-2', 12500); // Pengunjung Puas
+            animateCounter('stat-3', 15); // Tahun Beroperasi
+        };
+
+        // --- 3.k: Testimonial Carousel Simulation ---
+        const testimonials = [
+            { text: "Pemandangannya sungguh menakjubkan dan layanan yang diberikan sangat profesional.", author: "- Budi S. (Indonesia)" },
+            { text: "A truly unforgettable experience. The Dolomites were breathtaking.", author: "- Jane D. (USA)" },
+            { text: "Il Duomo di Milano è magnifico! Torneremo presto.", author: "- Giovanni R. (Italia)" }
+        ];
+
+        let currentTestimonial = 0;
+        const startTestimonialCarousel = () => {
+            const textElement = document.getElementById('carousel-text');
+            const authorElement = document.getElementById('carousel-author');
+
+            setInterval(() => {
+                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+                const t = testimonials[currentTestimonial];
+
+                // Animasi fade out
+                textElement.style.opacity = '0';
+                authorElement.style.opacity = '0';
+
+                setTimeout(() => {
+                    textElement.textContent = t.text;
+                    authorElement.textContent = t.author;
+                    // Animasi fade in
+                    textElement.style.opacity = '1';
+                    authorElement.style.opacity = '1';
+                }, 500); // Tunggu setengah detik untuk fade out
+            }, 5000); // Ganti setiap 5 detik
+        };
+
+        // --- 2.b: Scroll Animation / Parallax Simulation (Intersection Observer) ---
+        const setupScrollAnimation = () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-slide-up');
+                        entry.target.style.opacity = '1';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.animate-on-scroll').forEach(element => {
+                element.style.opacity = '0'; // Sembunyikan secara default
+                observer.observe(element);
+            });
+        };
+
+        // --- 2.c & 3.o: Chatbot / Live Chat Logic ---
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatModal = document.getElementById('chat-modal');
+        const closeChat = document.getElementById('close-chat');
+        const chatBody = document.getElementById('chat-body');
+        const chatInput = document.getElementById('chat-input');
+        const chatSend = document.getElementById('chat-send');
+
+        chatToggle.addEventListener('click', () => chatModal.classList.toggle('hidden'));
+        closeChat.addEventListener('click', () => chatModal.classList.add('hidden'));
+        chatSend.addEventListener('click', () => handleChat());
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleChat();
+        });
+
+        const handleChat = () => {
+            const message = chatInput.value.trim();
+            if (message === '') return;
+
+            // Tampilkan pesan pengguna
+            appendMessage(message, 'user');
+            chatInput.value = '';
+
+            // Simulasi balasan Chatbot
+            setTimeout(() => {
+                let botResponse = 'Saya belum mengerti pertanyaan Anda. Coba tanyakan tentang "tiket" atau "destinasi".';
+                const lowerMsg = message.toLowerCase();
+
+                if (lowerMsg.includes('tiket') || lowerMsg.includes('harga')) {
+                    botResponse = 'Informasi tiket dapat Anda temukan di bagian Reservasi. Tiket dewasa mulai dari €25.';
+                } else if (lowerMsg.includes('destinasi') || lowerMsg.includes('tempat')) {
+                    botResponse = 'Kami merekomendasikan Dolomiti, Milan, dan Venesia. Ingin detail salah satunya?';
+                } else if (lowerMsg.includes('cuaca')) {
+                    botResponse = document.getElementById('current-weather').textContent;
+                } else if (lowerMsg.includes('terima kasih')) {
+                    botResponse = 'Sama-sama! Senang melayani Anda.';
+                }
+                
+                appendMessage(botResponse, 'bot');
+            }, 1000);
+        };
+
+        const appendMessage = (text, sender) => {
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('chat-message', sender, 'p-3', 'rounded-lg', 'max-w-[80%]', 'shadow-sm');
+            msgDiv.textContent = text;
+
+            if (sender === 'user') {
+                msgDiv.classList.add('bg-accent/80', 'text-bg-light', 'ml-auto');
+            } else {
+                msgDiv.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-text-dark', 'dark:text-text-light', 'mr-auto');
+            }
+            chatBody.appendChild(msgDiv);
+            chatBody.scrollTop = chatBody.scrollHeight; // Auto-scroll
+        };
+        
+        // --- 3.i: Virtual Tour Placeholder Function ---
+        const openVirtualTour = () => {
+            showMessageBox("Memuat Virtual Tour 360°... (Ini adalah simulasi, akan diarahkan ke halaman virtual tour di implementasi penuh.)");
+        };
+
+        // --- Gaya untuk elemen-elemen berulang (didefinisikan dalam JS untuk kebersihan) ---
+        // Catatan: Dalam produksi, ini lebih baik diintegrasikan ke dalam konfigurasi tailwind.config
+
+        const styleSheet = document.createElement("style");
+        styleSheet.textContent = `
+            .nav-link {
+                @apply hover:text-accent dark:hover:text-accent font-medium transition duration-300 p-2 rounded-lg;
+            }
+            .btn-primary {
+                @apply bg-accent text-bg-light font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-700 transition duration-300 flex items-center justify-center mx-auto lg:mx-0;
+            }
+            .btn-secondary {
+                @apply border border-accent text-accent font-bold py-3 px-8 rounded-full shadow-md hover:bg-accent hover:text-bg-light transition duration-300;
+            }
+            .btn-sidebar-quick-link {
+                @apply bg-primary/10 dark:bg-gray-700 text-primary dark:text-gray-300 font-medium py-3 px-4 rounded-xl hover:bg-accent/20 dark:hover:bg-accent/40 transition duration-300 flex items-center justify-center text-sm;
+            }
+            .section-title {
+                @apply text-3xl sm:text-4xl font-extrabold mb-4 border-b-2 border-accent inline-block pb-1 text-primary dark:text-bg-light;
+            }
+            .form-input {
+                @apply w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent dark:bg-gray-700 dark:text-text-light transition duration-300;
+            }
+            .gallery-img {
+                @apply object-cover rounded-xl shadow-md hover:scale-[1.02] transition-transform duration-500 cursor-pointer;
+            }
+            .share-icon {
+                @apply w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 text-sm font-bold text-primary dark:text-accent hover:bg-accent hover:text-bg-light cursor-pointer transition;
+            }
+            .footer-link {
+                @apply hover:text-accent transition duration-300;
+            }
+            .social-icon {
+                @apply w-8 h-8 flex items-center justify-center rounded-full bg-accent text-primary dark:text-bg-light hover:scale-110 transition duration-300 font-bold;
+            }
+            .sidebar-article-link {
+                @apply text-sm text-primary dark:text-gray-300 hover:text-accent transition duration-300 block font-medium;
+            }
+            
+        `;
+        document.head.appendChild(styleSheet);
+    </script>
+</body>
+</html>
